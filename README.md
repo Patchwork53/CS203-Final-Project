@@ -75,13 +75,16 @@ python3 scripts/evaluate_no_ml.py traces/ls_trace.out
 
 The predictor checks tables in this order:
 
+- Repeated stride for exact `(PC, address)` or PC context.
 - Exact `(PC, address)` pair after one stable repeat.
 - Load address, once seen.
 - Load PC, once seen.
 
-Useful option:
+Useful options:
 
 - `--pair-threshold N`: number of stable repeats required before using the `(PC, address)` table. The default is `1`.
+- `--disable-stride`: turn off stride prediction and use only the last-value table order.
+- `--stride-threshold N`: number of repeated strides required before stride prediction. The default is `2`.
 
 ## 5) Quick sanity check (no Pin required)
 
