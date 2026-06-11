@@ -1,0 +1,175 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI Testing
+
+# Controls when the action will run. 
+on: 
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Compiling repo
+        run: |
+          make clean
+          make
+
+      # Checking (0,1) predictor
+      - name: Checking - gcc-10K (0,1) predictor 
+        run: |
+          ./branchsim -i traces/gcc-10K.txt -m 0 -n 1 &> output
+          diff <(head -n -1 output) <(head -n -1 .github/test/gcc-10K-0-1)
+        if: always()
+        
+      - name: Checking BHT entries  - gcc-10K (0,1) predictor 
+        run: |
+          diff <(tail -n 1 output) <(tail -n 1 .github/test/gcc-10K-0-1)
+        if: always()
+        
+      # Checking (0,2) predictor
+      - name: Checking - gcc-10K (0,2) predictor 
+        run: |
+          ./branchsim -i traces/gcc-10K.txt -m 0 -n 2 &> output
+          diff <(head -n -1 output) <(head -n -1 .github/test/gcc-10K-0-2)
+        if: always()
+
+      - name: Checking BHT entries  - gcc-10K (0,2) predictor 
+        run: |
+          diff <(tail -n 1 output) <(tail -n 1 .github/test/gcc-10K-0-2)
+        if: always()
+        
+      # Checking (4,1) predictor
+      - name: Checking - gcc-10K (4,1) predictor 
+        run: |
+          ./branchsim -i traces/gcc-10K.txt -m 4 -n 1 &> output
+          diff <(head -n -1 output) <(head -n -1 .github/test/gcc-10K-4-1)
+        if: always()
+      
+      - name: Checking BHT entries  - gcc-10K (4,1) predictor 
+        run: |
+          diff <(tail -n 1 output) <(tail -n 1 .github/test/gcc-10K-4-1)
+        if: always()
+        
+      # Checking (4,2) predictor
+      - name: Checking - gcc-10K (4,2) predictor 
+        run: |
+          ./branchsim -i traces/gcc-10K.txt -m 4 -n 2 &> output
+          diff <(head -n -1 output) <(head -n -1 .github/test/gcc-10K-4-2)
+        if: always()
+
+      - name: Checking BHT entries  - gcc-10K (4,2) predictor 
+        run: |
+          diff <(tail -n 1 output) <(tail -n 1 .github/test/gcc-10K-4-2)
+        if: always()
+        
+      # Checking (6,1) predictor
+      - name: Checking - gcc-10K (6,1) predictor 
+        run: |
+          ./branchsim -i traces/gcc-10K.txt -m 6 -n 1 &> output
+          diff <(head -n -1 output) <(head -n -1 .github/test/gcc-10K-6-1)
+        if: always()
+
+      - name: Checking BHT entries  - gcc-10K (6,1) predictor 
+        run: |
+          diff <(tail -n 1 output) <(tail -n 1 .github/test/gcc-10K-6-1)
+        if: always()
+        
+      # Checking (6,2) predictor
+      - name: Checking - gcc-10K (6,2) predictor 
+        run: |
+          ./branchsim -i traces/gcc-10K.txt -m 6 -n 2 &> output
+          diff <(head -n -1 output) <(head -n -1 .github/test/gcc-10K-6-2)
+        if: always()
+
+      - name: Checking BHT entries  - gcc-10K (6,2) predictor 
+        run: |
+          diff <(tail -n 1 output) <(tail -n 1 .github/test/gcc-10K-6-2)
+        if: always()
+        
+      # Checking (0,1) predictor
+      - name: Checking - gcc-8M (0,1) predictor 
+        run: |
+          ./branchsim -i traces/gcc-8M.txt -m 0 -n 1 &> output
+          diff <(head -n -1 output) <(head -n -1 .github/test/gcc-8M-0-1)
+        if: always()
+        
+      - name: Checking BHT entries  - gcc-8M (0,1) predictor 
+        run: |
+          diff <(tail -n 1 output) <(tail -n 1 .github/test/gcc-8M-0-1)
+        if: always()
+        
+      # Checking (0,2) predictor
+      - name: Checking - gcc-8M (0,2) predictor 
+        run: |
+          ./branchsim -i traces/gcc-8M.txt -m 0 -n 2 &> output
+          diff <(head -n -1 output) <(head -n -1 .github/test/gcc-8M-0-2)
+        if: always()
+
+      - name: Checking BHT entries  - gcc-8M (0,2) predictor 
+        run: |
+          diff <(tail -n 1 output) <(tail -n 1 .github/test/gcc-8M-0-2)
+        if: always()
+        
+      # Checking (4,1) predictor
+      - name: Checking - gcc-8M (4,1) predictor 
+        run: |
+          ./branchsim -i traces/gcc-8M.txt -m 4 -n 1 &> output
+          diff <(head -n -1 output) <(head -n -1 .github/test/gcc-8M-4-1)
+        if: always()
+      
+      - name: Checking BHT entries  - gcc-8M (4,1) predictor 
+        run: |
+          diff <(tail -n 1 output) <(tail -n 1 .github/test/gcc-8M-4-1)
+        if: always()
+        
+      # Checking (4,2) predictor
+      - name: Checking - gcc-8M (4,2) predictor 
+        run: |
+          ./branchsim -i traces/gcc-8M.txt -m 4 -n 2 &> output
+          diff <(head -n -1 output) <(head -n -1 .github/test/gcc-8M-4-2)
+        if: always()
+
+      - name: Checking BHT entries  - gcc-8M (4,2) predictor 
+        run: |
+          diff <(tail -n 1 output) <(tail -n 1 .github/test/gcc-8M-4-2)
+        if: always()
+        
+      # Checking (6,1) predictor
+      - name: Checking - gcc-8M (6,1) predictor 
+        run: |
+          ./branchsim -i traces/gcc-8M.txt -m 6 -n 1 &> output
+          diff <(head -n -1 output) <(head -n -1 .github/test/gcc-8M-6-1)
+        if: always()
+
+      - name: Checking BHT entries  - gcc-8M (6,1) predictor 
+        run: |
+          diff <(tail -n 1 output) <(tail -n 1 .github/test/gcc-8M-6-1)
+        if: always()
+        
+      # Checking (6,2) predictor
+      - name: Checking - gcc-8M (6,2) predictor 
+        run: |
+          ./branchsim -i traces/gcc-8M.txt -m 6 -n 2 &> output
+          diff <(head -n -1 output) <(head -n -1 .github/test/gcc-8M-6-2)
+        if: always()
+  
+      - name: Checking BHT entries  - gcc-8M (6,2) predictor
+        run: |
+          diff <(tail -n 1 output) <(tail -n 1 .github/test/gcc-8M-6-2)
+        if: always()

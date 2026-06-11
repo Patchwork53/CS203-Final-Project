@@ -12,7 +12,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from lvp.trace_parser import iter_trace
-from lvp.value_predictor_no_ml import HybridLastValuePredictor
+from lvp.hybrid_predictor import HybridLastValuePredictor
 
 
 def main() -> None:

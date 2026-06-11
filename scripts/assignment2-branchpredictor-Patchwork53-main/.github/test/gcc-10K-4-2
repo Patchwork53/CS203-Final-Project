@@ -1,0 +1,9 @@
+BHT: 2-bit
+Address length: 8
+History length: 4
+Debug mode: 0
+------------------------------------------
+Misclassification rate: 23.89%
+correct: 7611
+total: 10000
+BHT used 1638 entries

@@ -11,7 +11,7 @@ REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from lvp.baseline_last_value import LastValuePredictor
+from lvp.baseline_last_value_predictor import LastValuePredictor
 from lvp.trace_parser import iter_trace
 
 
